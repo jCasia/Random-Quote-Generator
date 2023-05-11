@@ -1,5 +1,5 @@
 import styles from './App.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import diceIcon from './assets/images/icon-dice.svg';
@@ -8,11 +8,8 @@ import patternDivider from './assets/images/pattern-divider-mobile.svg';
 const randomQuoteUrl = 'https://api.adviceslip.com/advice';
 
 const App = () => {
-  const initialAdvice =
-    "It is easy to sit up and take notice, what's difficult is getting up and taking action.";
-
-  const [randomQuote, setRandomQuote] = useState(initialAdvice);
-  const [id, setId] = useState('117');
+  const [randomQuote, setRandomQuote] = useState('');
+  const [id, setId] = useState('');
 
   const fetchData = async () => {
     try {
@@ -23,6 +20,10 @@ const App = () => {
       console.log(error.response);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <main className={styles.main}>
